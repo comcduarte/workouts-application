@@ -12,6 +12,9 @@ namespace Application;
 
 class Module
 {
+    const TITLE = "Middletown Workouts";
+    const VERSION = "v0.0.1";
+    
     public function getConfig() : array
     {
         return include __DIR__ . '/../config/module.config.php';
