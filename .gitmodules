@@ -7,3 +7,6 @@
 [submodule "module\\Settings"]
 	path = module\\Settings
 	url = https://github.com/comcduarte/com-settings.git
+[submodule "module\\Acl"]
+	path = module\\Acl
+	url = https://github.com/comcduarte/com-acl.git
