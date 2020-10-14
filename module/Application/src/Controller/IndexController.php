@@ -12,11 +12,24 @@ namespace Application\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
+use User\Form\UserLoginForm;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        $view = new ViewModel();
+        
+        $form = new UserLoginForm();
+        $form->init();
+        $view->setVariable('form', $form);
+        
+        return $view;
+    }
+    
+    public function workoutAction()
+    {
+        $view = new ViewModel();
+        return $view;
     }
 }
