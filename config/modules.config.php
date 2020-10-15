@@ -30,4 +30,5 @@ return [
     'Settings',
     'Components',
     'User',
+    'Acl',
 ];
