@@ -66,6 +66,7 @@ return [
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             'navigation'              => __DIR__ . '/../view/partials/navigation.phtml',
             'flashmessenger'          => __DIR__ . '/../view/partials/flashmessenger.phtml',
+            'application/login'       => __DIR__ . '/../view/partials/login.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
