@@ -12,7 +12,7 @@ namespace Application;
 
 class Module
 {
-    const TITLE = "Middletown Wellness & Workouts";
+    const TITLE = "Middletown Workouts & Wellness";
     const VERSION = "v0.0.2";
     
     public function getConfig() : array
