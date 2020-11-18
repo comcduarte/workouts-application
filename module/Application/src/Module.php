@@ -12,8 +12,8 @@ namespace Application;
 
 class Module
 {
-    const TITLE = "Middletown Workouts";
-    const VERSION = "v0.0.1";
+    const TITLE = "Middletown Wellness & Workouts";
+    const VERSION = "v0.0.2";
     
     public function getConfig() : array
     {
