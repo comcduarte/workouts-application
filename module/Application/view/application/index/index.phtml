@@ -3,20 +3,33 @@
  * @var Laminas\View\Renderer\PhpRenderer $this
  */
 ?>
-<div class="jumbotron">
-    <h1 class="display-4">Welcome to<br>Middletown Workouts & Wellness</h1>
-</div>
-<?php if (! $this->currentUser()) : ?>
-<div class="card-deck">
-    <div class="card">
-        <h2 class="card-header">Login</h2>
-        <div class="card-body">
-            <?php echo $this->partial('application/login', ['form' => $this->form]); ?>
+<div class="row">
+	<div class="col-md-8">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to<br>Middletown Workouts &amp; Wellness</h1>
         </div>
-    </div>
+        <?php if (! $this->currentUser()) : ?>
+        <div class="card-deck">
+            <div class="card">
+                <h2 class="card-header">Login</h2>
+                <div class="card-body">
+                    <?php echo $this->partial('application/login', ['form' => $this->form]); ?>
+                </div>
+            </div>
+        </div>
+        
+        <?php else : ?>
+        <iframe src="https://middletownct.app.box.com/embed/s/gbegf8e7w7hrd5apj52g2yooh41d5rbz?sortColumn=date&view=list" width="100%" height="100%" frameborder="0" allowfullscreen webkitallowfullscreen msallowfullscreen></iframe>
+        <?php endif; ?>
+	</div>
+	<div class="col-md-4">
+	<h1 class="mb-4">News</h1>
+		<img class="mb-4" style="width: 225px; height: 125px;" src="<?=$this->basePath('img/change_4_life.png')?>">
+		<h4>December Workout Challenge w/ Incentive</h4>
+		<p>&nbsp;</p>
+		<p>Starting December 1st - Complete 5 classes via the City Workouts program and receive a $25 gift card* AND be entered in a raffle to win an exercise mat* 
+		OR a set of resistance bands.* Program ends January 1, 2021.</p>
+		<p>Please submit your name, along with the dates and times of the classes you completed to the <a href="mailto:risk@middletownct.gov">Risk Office.</a></p>
+		<p><small style="color: red;">* Only Middletown Cigna Covered employees and spouses are eligible.</small></p>
+	</div>
 </div>
-
-<?php else : ?>
-<iframe src="https://middletownct.app.box.com/embed/s/gbegf8e7w7hrd5apj52g2yooh41d5rbz?sortColumn=date&view=list" width="100%" height="100%" frameborder="0" allowfullscreen webkitallowfullscreen msallowfullscreen></iframe>
-<?php endif; ?>
-
