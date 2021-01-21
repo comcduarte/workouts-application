@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Application;
 
+use Application\Service\Factory\ApplicationModelAdapterFactory;
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
@@ -37,11 +38,58 @@ return [
                     ],
                 ],
             ],
+            'news' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/news',
+                    'defaults' => [
+                        'controller' => Controller\NewsController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+                'may_terminate' => TRUE,
+                'child_routes' => [
+                    'image' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route' => '/image',
+                            'defaults' => [
+                                'action' => 'image',
+                                'controller' => Controller\NewsController::class,
+                            ],
+                        ],
+                    ],
+                    'config' => [
+                        'type' => Segment::class,
+                        'priority' => 100,
+                        'options' => [
+                            'route' => '/config[/:action]',
+                            'defaults' => [
+                                'action' => 'index',
+                                'controller' => Controller\NewsConfigController::class,
+                            ],
+                        ],
+                    ],
+                    'default' => [
+                        'type' => Segment::class,
+                        'priority' => -100,
+                        'options' => [
+                            'route' => '/[:action[/:uuid]]',
+                            'defaults' => [
+                                'action' => 'index',
+                                'controller' => Controller\NewsController::class,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+            Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
+            Controller\NewsController::class => Controller\Factory\NewsControllerFactory::class,
+            Controller\NewsConfigController::class => Controller\Factory\NewsConfigControllerFactory::class,
         ],
     ],
     'navigation' => [
@@ -51,6 +99,51 @@ return [
                 'route' => 'home',
                 'class' => 'dropdown',
             ],
+            'news' => [
+                'label' => 'News',
+                'route' => 'news/default',
+                'class' => 'dropdown',
+                'action' => 'index',
+                'pages' => [
+                    [
+                        'label' => 'New Entry',
+                        'route' => 'news/default',
+                        'resource' =>  'news/default',
+                        'action' => 'create',
+                        'privilege' => 'create',
+                    ],
+                    [
+                        'label' => 'News Listing',
+                        'route' => 'news/default',
+                        'resource' => 'news/default',
+                        'action' => 'index',
+                        'privilege' => 'index',
+                    ],
+                ],
+            ],
+            'settings' => [
+                'label' => 'Settings',
+                'route' => 'home',
+                'class' => 'dropdown',
+                'order' => 100,
+                'pages' => [
+                    'user' => [
+                        'label'  => 'News Settings',
+                        'route'  => 'news/config',
+                        'action' => 'index',
+                        'resource' => 'news/config',
+                        'privilege' => 'index',
+                    ],
+                ],
+            ],
+        ],
+    ],
+    'service_manager' => [
+        'aliases' => [
+            'application-model-adapter-config' => 'model-adapter-config',
+        ],
+        'factories' => [
+            'application-model-adapter' => ApplicationModelAdapterFactory::class,
         ],
     ],
     'view_manager' => [
@@ -67,6 +160,7 @@ return [
             'navigation'              => __DIR__ . '/../view/partials/navigation.phtml',
             'flashmessenger'          => __DIR__ . '/../view/partials/flashmessenger.phtml',
             'application/login'       => __DIR__ . '/../view/partials/login.phtml',
+            'image'                   => __DIR__ . '/../view/layout/image_layout.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',
