@@ -23,6 +23,10 @@ class IndexController extends AbstractActionController
     
     public function indexAction()
     {
+        if (preg_match('/iPhone/', $_SERVER['HTTP_USER_AGENT'])) {
+            return $this->redirect()->toUrl('https://middletownct.app.box.com/embed/s/gbegf8e7w7hrd5apj52g2yooh41d5rbz?sortColumn=date&view=list');
+        }
+        
         $view = new ViewModel();
         
         $form = new UserLoginForm();
